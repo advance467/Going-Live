@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+
+  app:
+    build: "./.docker_images/go_live_reloader"
+    image: "go_live_reloader:dev"
+    user: "node"
+    working_dir: /home/node/app
+    volumes:
+      - type: "bind"
+        source: ./
+        target: "/home/node/app"
+    ports:
+      - "3001:3000"
