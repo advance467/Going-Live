@@ -1,5 +1,7 @@
-module github.com/advance467/go_api_live_reloader
+module github.com/advance467/Going-Live
 
 go 1.19
 
-require github.com/gorilla/mux v1.8.0
+require github.com/lib/pq v1.10.7
+
+require github.com/go-chi/chi/v5 v5.0.8

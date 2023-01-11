@@ -13,3 +13,24 @@ services:
         target: "/home/node/app"
     ports:
       - "3001:3000"
+    depends_on:
+      - database
+
+  database:
+    image: 'postgres:15.1'
+    ports:
+        - '5433:5432'
+    environment:
+        POSTGRES_DB: 'goinglive'
+        POSTGRES_USER: 'goinglive'
+        POSTGRES_PASSWORD: 'goinglive'
+    volumes:
+        - 'going-live-db1:/var/lib/postgresql/data'
+    healthcheck:
+        test: ["CMD", "pg_isready", "-q", "-d", "goinglive", "-U", "goinglive"]
+        retries: 3
+        timeout: 5s
+
+volumes:
+    going-live-db1:
+      driver: local
