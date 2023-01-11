@@ -12,12 +12,12 @@ services:
         source: ./
         target: "/home/node/app"
     ports:
-      - "3001:3000"
+      - "3001:3001"
     depends_on:
       - database
 
   database:
-    image: 'postgres:15.1-alpine'
+    image: 'postgres:15.1'
     ports:
       - '5433:5432'
     environment:
@@ -25,7 +25,7 @@ services:
       POSTGRES_USER: 'goinglive'
       POSTGRES_PASSWORD: 'goinglive'
     volumes:
-      - 'goinglivevol:/var/lib/postgresql/data'
+      - 'going-live-db1:/var/lib/postgresql/data'
       - ./database/pg-init.sql:/docker-entrypoint-initdb.d/pg-init.sql
     healthcheck:
       test: ["CMD", "pg_isready", "-q", "-d", "goinglive", "-U", "goinglive"]
@@ -38,5 +38,5 @@ services:
       - '8081:8080'
 
 volumes:
-  goinglivevol:
+  going-live-db1:
     driver: local

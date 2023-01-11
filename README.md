@@ -25,6 +25,6 @@ curl localhost:3001/titles | jq
 curl localhost:3001/titles/1 | jq
 ```
 
-## Author
+## Authors
 - [advance467](mailto:advance467@hotmail.com)
 - [alaindet](https://github.com/alaindet)
