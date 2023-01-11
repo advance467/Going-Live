@@ -8,4 +8,4 @@ ENV PATH="/usr/local/go/bin:${PATH}"
 
 WORKDIR /home/node/app
 
-CMD ["nodemon", "-e", "go,mod,sum", "--signal", "SIGTERM", "--exec", "go run . || exit 1"]
+CMD ["nodemon", "-e", "go,mod,sum", "--signal", "SIGTERM", "--exec", "go run ./cmd/going-live || exit 1"]
