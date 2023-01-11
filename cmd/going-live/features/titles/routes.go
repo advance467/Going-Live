@@ -8,9 +8,8 @@ func LoadTitleRoutes(mainRouter *chi.Mux) {
 
 	r := chi.NewRouter()
 
-	r.Get("/{id:[1-9]\\d*}", GetTitle)
+	r.Get("/{id:[1-9]\\d*}", getTitle)
 	r.Get("/", getTitles)
 
 	mainRouter.Mount("/titles", r)
-
 }

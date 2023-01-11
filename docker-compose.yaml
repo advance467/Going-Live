@@ -3,8 +3,8 @@ version: '3.8'
 services:
 
   app:
-    build: "./.docker_images/go_live_reloader"
-    image: "go_live_reloader:dev"
+    build: "./.docker_images/going_live_reloader"
+    image: "going_live_reloader:dev"
     user: "node"
     working_dir: /home/node/app
     volumes:
@@ -12,25 +12,31 @@ services:
         source: ./
         target: "/home/node/app"
     ports:
-      - "3001:3000"
+      - "3001:3001"
     depends_on:
       - database
 
   database:
     image: 'postgres:15.1'
     ports:
-        - '5433:5432'
+      - '5433:5432'
     environment:
-        POSTGRES_DB: 'goinglive'
-        POSTGRES_USER: 'goinglive'
-        POSTGRES_PASSWORD: 'goinglive'
+      POSTGRES_DB: 'goinglive'
+      POSTGRES_USER: 'goinglive'
+      POSTGRES_PASSWORD: 'goinglive'
     volumes:
-        - 'going-live-db1:/var/lib/postgresql/data'
+      - 'going-live-db1:/var/lib/postgresql/data'
+      - ./database/pg-init.sql:/docker-entrypoint-initdb.d/pg-init.sql
     healthcheck:
-        test: ["CMD", "pg_isready", "-q", "-d", "goinglive", "-U", "goinglive"]
-        retries: 3
-        timeout: 5s
+      test: ["CMD", "pg_isready", "-q", "-d", "goinglive", "-U", "goinglive"]
+      retries: 3
+      timeout: 5s
+
+  adminer:
+    image: adminer:4.8.1
+    ports:
+      - '8081:8080'
 
 volumes:
-    going-live-db1:
-      driver: local
+  going-live-db1:
+    driver: local
