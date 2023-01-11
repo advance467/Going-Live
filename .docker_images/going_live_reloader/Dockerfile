@@ -1,8 +1,8 @@
-FROM node:16.14.0
+FROM node:16.19
 
 RUN npm install -g nodemon
 
-COPY --from=golang:1.19.4 /usr/local/go /usr/local/go
+COPY --from=golang:1.19.5 /usr/local/go /usr/local/go
 
 ENV PATH="/usr/local/go/bin:${PATH}"
 

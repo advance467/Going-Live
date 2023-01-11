@@ -20,8 +20,8 @@ type TitleItem struct {
 func getTitle(w http.ResponseWriter, r *http.Request) {
 
 	titleID := chi.URLParam(r, "id")
-	stmt := "SELECT * FROM titles where id = $1 LIMIT 1"
-	row := database.GetDB().QueryRow(stmt, titleID)
+	statement := "SELECT * FROM titles where id = $1 LIMIT 1"
+	row := database.GetDB().QueryRow(statement, titleID)
 
 	var item TitleItem
 	err := row.Scan(&item.ID, &item.Name, &item.Description)
@@ -43,8 +43,8 @@ func getTitle(w http.ResponseWriter, r *http.Request) {
 
 func getTitles(w http.ResponseWriter, r *http.Request) {
 
-	stmt := "SELECT * FROM titles"
-	rows, err := database.GetDB().Query(stmt)
+	statement := "SELECT * FROM titles"
+	rows, err := database.GetDB().Query(statement)
 
 	if err != nil {
 		log.Fatal(err)

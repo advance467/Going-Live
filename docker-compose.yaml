@@ -21,9 +21,9 @@ services:
     ports:
       - '5433:5432'
     environment:
-      POSTGRES_DB: 'goinglive'
-      POSTGRES_USER: 'goinglive'
-      POSTGRES_PASSWORD: 'goinglive'
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - 'going-live-db1:/var/lib/postgresql/data'
       - ./database/pg-init.sql:/docker-entrypoint-initdb.d/pg-init.sql
@@ -32,11 +32,19 @@ services:
       retries: 3
       timeout: 5s
 
-  adminer:
-    image: adminer:4.8.1
+  pgadmin:
+    image: dpage/pgadmin4
     ports:
-      - '8081:8080'
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@goinglive.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      GUNICORN_ACCESS_LOGFILE: '/dev/null'
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
 
 volumes:
   going-live-db1:
+    driver: local
+  pgadmin-data:
     driver: local
